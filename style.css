@@ -1,0 +1,70 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #607d8b;
+}
+
+.box {
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 100px);
+    transform: perspective(1000px)/*you can't use translate(-50%, -50%) here because it's perspective.  The resulting effect isn't desired.*/ rotateY(-35deg);
+    transform-style: preserve-3d;/*this line is needed here or it won't work.*/
+    width: 200px;
+    height: 300px;
+}
+
+.box::before {
+    /*This is to create a still shadow effect on an imaginary floor.*/
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    filter: blur(40px);
+    opacity: 0.5;
+}
+
+.box div {
+    transform-style: preserve-3d;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: myAnimation 5s linear infinite;
+}
+
+.box div span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, #f1f1f1, #bbb, #f1f1f1);
+    border-radius: 20px;
+    transform-style: preserve-3d;
+}
+
+.box div span:nth-child(1) {
+    transform: rotateX(0deg);
+}
+.box div span:nth-child(2) {
+    transform: rotateX(45deg);
+}
+.box div span:nth-child(3) {
+    transform: rotateX(90deg);
+}
+.box div span:nth-child(4) {
+    transform: rotateX(135deg);
+}
+
+@keyframes myAnimation {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(359deg);
+    }
+}
